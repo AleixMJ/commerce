@@ -67,13 +67,16 @@ def listing(request):
     if request.method == "POST":
         title = request.POST["title"]
         image = request.POST["image"]
-        text = request.POST["image"]
-        category = request.POST["category"]
+        text = request.POST["text"]
+        category = Category.objects.get(request.POST["category"])
+        price = float(request.POST["price"])
         user = request.user
-        new_listing = Auction(title=title, url=image,text=text,category=category, user=user)
+        new_listing = Auction(title=title, url=image,text=text,category=category, user=user, price=price)
         new_listing.save()
         print("auction created")
         return HttpResponseRedirect(reverse("index"))
     else:
         user = request.user
-        return render(request, "auctions/listing.html")
+        return render(request, "auctions/listing.html", {
+            "categories": Category.objects.all()
+        })

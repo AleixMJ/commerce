@@ -10,13 +10,14 @@ class Category(models.Model):
     title = models.CharField(max_length=64)
 
     def __str__(self):
-        return f"{self.id}: {self.title}"
+        return self.title
 
 class Auction(models.Model):
     title = models.CharField(max_length=64)
     text = models.TextField()
     url = models.URLField()
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+    price = models.FloatField(default=0)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     active = models.BooleanField(default=True)
 

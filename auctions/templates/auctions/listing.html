@@ -2,21 +2,24 @@
 
 {% block body %}
     <h2>Create Listing</h2>
-    <form method="POST">
+    <form action="{% url 'listing' %}" method="POST">
       {% csrf_token %}
       <div class="mb-3">
         <label for="exampleFormControlInput1" class="form-label">Title</label>
         <input name="title" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Title">
       </div>
       <div class="mb-3">
+        <label for="exampleFormControlInput1" class="form-label">Minimum Price</label>
+        <input name="price" type="number" class="form-control" id="exampleFormControlInput1" placeholder="Minimum Price">
+      </div>
+      <div class="mb-3">
         <label for="exampleFormControlInput1" class="form-label">Image URL</label>
         <input name="image" type="text" class="form-control" id="exampleFormControlInput1" placeholder="https://">
       </div>
-      <select name="category" class="form-select form-select-sm" aria-label=".form-select-sm example">
-        <option selected>Select Category</option>
-        <option value="Home">Home</option>
-        <option value="2">Two</option>
-        <option value="3">Three</option>
+      <select name="category" id="category" class="form-select form-select-sm" aria-label=".form-select-sm example">
+        {% for category in categories %}
+            <option value="{{category}}">{{category}}</option>
+        {% endfor%}
       </select>
       <div class="mb-3">
         <label for="exampleFormControlTextarea1" class="form-label">Listing Description</label>
