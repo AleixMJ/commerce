@@ -2,10 +2,10 @@
 
 {% block body %}
     <h2>Create Listing</h2>
-    <form>
-
+    <form method="POST">
+      {% csrf_token %}
       <div class="mb-3">
-        <label for="exampleFormControlInput1" class="form-label">Email address</label>
+        <label for="exampleFormControlInput1" class="form-label">Title</label>
         <input name="title" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Title">
       </div>
       <div class="mb-3">
@@ -14,7 +14,7 @@
       </div>
       <select name="category" class="form-select form-select-sm" aria-label=".form-select-sm example">
         <option selected>Select Category</option>
-        <option value="1">One</option>
+        <option value="Home">Home</option>
         <option value="2">Two</option>
         <option value="3">Three</option>
       </select>
