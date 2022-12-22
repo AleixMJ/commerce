@@ -13,7 +13,7 @@ class Category(models.Model):
         return self.title
 
 class Auction(models.Model):
-    title = models.CharField(max_length=64)
+    title = models.CharField(max_length=30)
     text = models.TextField()
     url = models.URLField()
     user = models.ForeignKey(User, on_delete=models.CASCADE)
