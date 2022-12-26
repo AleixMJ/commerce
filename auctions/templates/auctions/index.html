@@ -17,7 +17,7 @@
                 <div class="card-body">
                 <form action="{% url 'auction' %}" method="POST">
                     {% csrf_token %}
-                    <input type="hidden" name="item" value="{{auction.title}}">
+                    <input type="hidden" name="auction" value={{auction.id}}>
                     <button type="submit" class="btn btn-primary">Check details</button>
                 </form>
                 </div>
