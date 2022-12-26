@@ -81,3 +81,6 @@ def listing(request):
         return render(request, "auctions/listing.html", {
             "categories": Category.objects.all()
         })
+
+def auction(request):
+    return render(request, "auctions/auction.html")
