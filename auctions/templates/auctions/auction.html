@@ -2,9 +2,22 @@
 
 {% block body %}
 
-Auction page for {{auction.title}}
-text: {{auction.text}}
-image: {{auction.url}}
-price: {{auction.price}}
-Category: {{auction.category}}
+<div class="card text-center">
+    <div class="card-header">
+        {{auction.title}}
+    </div>
+    <img src="{{auction.url}}" class="img-fluid image2" alt={{auction.title}}>
+    <div class="card-body">
+    <div class="card-body">
+        <h5 class="card-title">auction.title</h5>
+        <p class="card-text">{{auction.text}}</p>
+        <a href="#" class="btn btn-primary">Add comment</a>
+        </div>
+    <div class="card-footer text-muted">
+            highest bid:  ${{auction.price}}
+    </div>
+</div>
+
+
+
 {% endblock %}

@@ -18,3 +18,10 @@ body {
     min-height: 200px;
 }
 
+.image2 {
+    float: left;
+    height:  auto;
+    width: 1300px;
+    background-size: cover;
+}
+

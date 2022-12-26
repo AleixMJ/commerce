@@ -83,8 +83,6 @@ def listing(request):
         })
 
 def auction(request):
-    print("testing")
-    print(request.POST["auction"])
     auction = Auction.objects.get(id=request.POST["auction"])
     print(auction)
     if request.method == "POST":
