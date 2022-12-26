@@ -83,4 +83,9 @@ def listing(request):
         })
 
 def auction(request):
-    return render(request, "auctions/auction.html")
+    print(request.POST["item"])
+    item = request.POST["item"]
+    if request.method == "POST":
+        return render(request, "auctions/auction.html", {
+            "auction": item
+        })
