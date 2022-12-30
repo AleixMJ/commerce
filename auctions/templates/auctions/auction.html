@@ -29,7 +29,7 @@
         <a href="#" class="btn btn-primary">Add comment</a>
     </div>
     <div class="card-footer text-muted">
-            highest bid:  ${{auction.price}}
+            highest bid:  ${{price}}
             {% if user.is_authenticated %}
             <form action="{% url 'bidding' id=auction.id %}" method="POST">
                 {% csrf_token %}

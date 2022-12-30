@@ -31,7 +31,7 @@ class Bid(models.Model):
     bidder = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
-        return f"{self.id}: {self.price} bid for Auction {self.item} from {self.bidder}"
+        return f"${self.price} bid from {self.bidder}"
 
 class Comment(models.Model):
     item = models.ForeignKey(Auction, on_delete=models.CASCADE, related_name='comments')

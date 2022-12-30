@@ -85,13 +85,20 @@ def listing(request):
 
 def auction(request, id):
     auction = Auction.objects.get(id=id)
+    bids = Bid.objects.filter(item=auction)
+    print(bids)
+    if not bids:
+        price = auction.price
+    else:
+        maxbid = bids.latest('price')
+        price = maxbid.price
     minimum = auction.price + 1
-    
     watchlist = request.user in auction.watchlist.all()
     return render(request, "auctions/auction.html", {
         "auction": auction,
         "watchlist": watchlist,
-        "minimum": minimum
+        "minimum": minimum,
+        "price":price
     })
 
 @login_required
@@ -122,6 +129,5 @@ def bidding(request, id):
         auction = Auction.objects.get(pk=id)
         price = request.POST["price"]
         bet = Bid(item=auction, bidder=user, price=price)
-        bet.save()
-        auction.price = price        
+        bet.save()              
         return HttpResponseRedirect(reverse("auction", args=(id,)))
