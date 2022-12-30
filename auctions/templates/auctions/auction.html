@@ -27,8 +27,7 @@
     
     <div class="card-body">
         <p class="card-text">{{auction.text}}</p>
-        <a href="#" class="btn btn-primary">Add comment</a>
-    </div>
+      </div>
 
             highest bid:  ${{price}}
             {% if user.is_authenticated %}
@@ -38,7 +37,18 @@
                         <button type="submit" class="btn btn-primary">Place Bid</button>
                      
                 </form>                   
-                {% endif %}
+            {% endif %}
+
+            <p>Comments</p>
+
+            {% if user.is_authenticated %}
+            <form action="{% url 'addcomment' id=auction.id %}" method="POST">
+                {% csrf_token %}
+                    <input type="textarea" name="text" placeholder="Add your comment" >
+                    <button type="submit" class="btn btn-primary">Submit comment</button>
+                 
+            </form>                   
+        {% endif %}
     
 </div>
 

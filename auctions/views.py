@@ -86,7 +86,6 @@ def listing(request):
 def auction(request, id):
     auction = Auction.objects.get(id=id)
     bids = Bid.objects.filter(item=auction)
-    print(bids)
     if not bids:
         price = auction.price
     else:
@@ -130,4 +129,19 @@ def bidding(request, id):
         price = request.POST["price"]
         bet = Bid(item=auction, bidder=user, price=price)
         bet.save()              
+        return HttpResponseRedirect(reverse("auction", args=(id,)))
+
+
+@login_required
+def addcomment(request, id):
+        print("receiving comment")
+        user= request.user  
+        auction = Auction.objects.get(pk=id)
+        text = request.POST["text"]
+        print(text)
+        comment = Comment(item=auction, user=user, text=text)
+        print(comment)
+        comment.save()
+        print("saved")
+        
         return HttpResponseRedirect(reverse("auction", args=(id,)))

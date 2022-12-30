@@ -37,7 +37,6 @@ class Comment(models.Model):
     item = models.ForeignKey(Auction, on_delete=models.CASCADE, related_name='comments')
     text = models.TextField()
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    created_on = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return f"{self.id}: comment for Auction {self.item} from {self.user}"
