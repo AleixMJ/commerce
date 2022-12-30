@@ -102,8 +102,10 @@ def addwatch(request, id):
 @login_required
 def watchlist(request):
     user= request.user
-    auction = user.watching.all()
+    auctions = user.watching.all()
+    print("******")
     print(auction) 
+    print("******")
     return render(request, "auctions/watchlist.html", {
-            "auction": auction
+            "auctions": auctions
     })
