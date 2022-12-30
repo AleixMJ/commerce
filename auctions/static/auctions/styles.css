@@ -19,9 +19,8 @@ body {
 }
 
 .image2 {
-    float: left;
-    height:  auto;
-    width: 1300px;
-    background-size: cover;
+    max-width: 1000px;
+    max-height: auto;
+    margin: 50px
 }
 
