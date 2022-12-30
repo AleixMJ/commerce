@@ -20,6 +20,7 @@ class Auction(models.Model):
     price = models.FloatField(default=0)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     active = models.BooleanField(default=True)
+    watchlist = models.ManyToManyField(User, blank=True, null=True, related_name="watching")
 
     def __str__(self):
         return f"{self.id}: Auction {self.title} from {self.user}"
@@ -40,9 +41,3 @@ class Comment(models.Model):
 
     def __str__(self):
         return f"{self.id}: comment for Auction {self.item} from {self.user}"
-
-class Watchlist(models.Model):
-    item = models.ForeignKey(Auction, on_delete=models.CASCADE, related_name='watching')  
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='mywatch')
-    def __str__(self):
-        return f"{self.item}"

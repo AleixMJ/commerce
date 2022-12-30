@@ -5,7 +5,7 @@ from django.shortcuts import render
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 
-from .models import User, Auction, Bid, Comment, Category, Watchlist
+from .models import User, Auction, Bid, Comment, Category
 
 
 def index(request):
@@ -92,17 +92,18 @@ def auction(request):
         })
 
 @login_required
-def watchlist(request):
-    user= request.user     
-    if request.method == "POST":           
-        auction = Auction.objects.get(id=request.POST["auction"])
-        fav = Watchlist(item=auction, user=user)
-        fav.save()
-        return render(request, "auctions/auction.html", {
-            "auction": auction
-        })
+def addwatch(request, id):
+        user= request.user  
+        auction = Auction.objects.get(pk=id)
+        print(auction)
+        auction.watchlist.add(user)
+        return HttpResponseRedirect(reverse(auction))
 
-    else:
-        return render(request, "auctions/watchlist.html", {
-        "auctions": Watchlist.objects.filter(user=user)
+@login_required
+def watchlist(request):
+    user= request.user
+    auction = user.watching.all()
+    print(auction) 
+    return render(request, "auctions/watchlist.html", {
+            "auction": auction
     })
