@@ -28,18 +28,19 @@
         <p class="card-text">{{auction.text}}</p>
         <a href="#" class="btn btn-primary">Add comment</a>
     </div>
-    <div class="card-footer text-muted">
+
             highest bid:  ${{price}}
             {% if user.is_authenticated %}
-            <form action="{% url 'bidding' id=auction.id %}" method="POST">
-                {% csrf_token %}
-                <input type="number" name="price" placeholder="bid amount" Minimum={{minimum}}>
-                <button type="submit" class="btn btn-primary">Bid</button>
-            </form>
-            {% endif %}
-    </div>
+                <form action="{% url 'bidding' id=auction.id %}" method="POST">
+                    {% csrf_token %}
+                        <input type="number" name="price" placeholder="bid amount" Minimum={{minimum}}>
+                        <button type="submit" class="btn btn-primary">Place Bid</button>
+                     
+                </form>                   
+                {% endif %}
+    
 </div>
 
 
-
+    
 {% endblock %}
