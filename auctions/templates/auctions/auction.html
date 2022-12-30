@@ -3,10 +3,6 @@
 {% block body %}
 
 <div class="text-center">
-    <div class="card-header">
-        {{auction.title}}
-    </div>
-    <img src="{{auction.url}}" class="img-fluid rounded mx-auto d-block image2" alt={{auction.title}}>
     {% if user.is_authenticated %}
         {% if watchlist %}
 
@@ -24,6 +20,11 @@
         </form>
         {% endif %}
     {% endif %}
+    <div class="card-header">
+        {{auction.title}}
+    </div>
+    <img src="{{auction.url}}" class="img-fluid rounded mx-auto d-block image2" alt={{auction.title}}>
+    
     <div class="card-body">
         <p class="card-text">{{auction.text}}</p>
         <a href="#" class="btn btn-primary">Add comment</a>
