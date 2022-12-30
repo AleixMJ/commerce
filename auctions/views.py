@@ -86,27 +86,25 @@ def listing(request):
 def auction(request, id):
     auction = Auction.objects.get(id=id)
     
-    if request.method == "POST":
-        watchlist = request.user in auction.watchlist.all()
-        print(watchlist)
-        return render(request, "auctions/auction.html", {
-            "auction": auction,
-            "watchlist": watchlist
-        })
+    watchlist = request.user in auction.watchlist.all()
+    return render(request, "auctions/auction.html", {
+        "auction": auction,
+        "watchlist": watchlist
+    })
 
 @login_required
 def addwatch(request, id):
         user= request.user  
         auction = Auction.objects.get(pk=id)
         auction.watchlist.add(user)
-        return HttpResponseRedirect(reverse("auction"))
+        return HttpResponseRedirect(reverse("auction", args=(id, )))
 
 @login_required
 def removewatch(request, id):
         user= request.user  
         auction = Auction.objects.get(pk=id)
         auction.watchlist.remove(user)
-        return HttpResponseRedirect(reverse("auction"))
+        return HttpResponseRedirect(reverse("auction", args=(id, )))
 
 @login_required
 def watchlist(request):
