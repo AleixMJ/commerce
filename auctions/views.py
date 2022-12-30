@@ -85,11 +85,13 @@ def listing(request):
 
 def auction(request, id):
     auction = Auction.objects.get(id=id)
+    minimum = auction.price + 1
     
     watchlist = request.user in auction.watchlist.all()
     return render(request, "auctions/auction.html", {
         "auction": auction,
-        "watchlist": watchlist
+        "watchlist": watchlist,
+        "minimum": minimum
     })
 
 @login_required
@@ -97,22 +99,29 @@ def addwatch(request, id):
         user= request.user  
         auction = Auction.objects.get(pk=id)
         auction.watchlist.add(user)
-        return HttpResponseRedirect(reverse("auction", args=(id, )))
+        return HttpResponseRedirect(reverse("auction", args=(id,)))
 
 @login_required
 def removewatch(request, id):
         user= request.user  
         auction = Auction.objects.get(pk=id)
         auction.watchlist.remove(user)
-        return HttpResponseRedirect(reverse("auction", args=(id, )))
+        return HttpResponseRedirect(reverse("auction", args=(id,)))
 
 @login_required
 def watchlist(request):
     user= request.user
     auctions = user.watching.all()
-    print("******")
-    print(auction) 
-    print("******")
     return render(request, "auctions/watchlist.html", {
             "auctions": auctions
     })
+
+@login_required
+def bidding(request, id):
+        user= request.user  
+        auction = Auction.objects.get(pk=id)
+        price = request.POST["price"]
+        bet = Bid(item=auction, bidder=user, price=price)
+        bet.save()
+        auction.price = price        
+        return HttpResponseRedirect(reverse("auction", args=(id,)))
