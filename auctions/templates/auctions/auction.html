@@ -8,11 +8,22 @@
     </div>
     <img src="{{auction.url}}" class="img-fluid rounded mx-auto d-block image2" alt={{auction.title}}>
     {% if user.is_authenticated %}
-    <form action="{% url 'addwatch' id=auction.id %}" method="POST">
-        {% csrf_token %}
-         <input type="hidden" name="auction" value={{auction.id}}>
-        <button type="submit" class="btn btn-primary">Add to Watchlist</button>
-    </form>
+        {% if watchlist %}
+
+        <form action="{% url 'removewatch' id=auction.id %}" method="POST">
+            {% csrf_token %}
+            <input type="hidden" name="auction" value={{auction.id}}>
+            <button type="submit" class="btn btn-primary">Remove from Watchlist</button>
+        </form>
+
+        {% else %}
+
+        <form action="{% url 'addwatch' id=auction.id %}" method="POST">
+            {% csrf_token %}
+            <input type="hidden" name="auction" value={{auction.id}}>
+            <button type="submit" class="btn btn-primary">Add to Watchlist</button>
+        </form>
+        {% endif %}
     {% endif %}
     <div class="card-body">
         <p class="card-text">{{auction.text}}</p>
