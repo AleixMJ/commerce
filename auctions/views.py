@@ -89,3 +89,8 @@ def auction(request):
         return render(request, "auctions/auction.html", {
             "auction": auction
         })
+
+def watchlist(request):
+    return render(request, "auctions/watchlist.html", {
+        "auctions": Auction.objects.all()
+    })
