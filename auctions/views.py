@@ -3,6 +3,7 @@ from django.db import IntegrityError
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
+from django.contrib.auth.decorators import login_required
 
 from .models import User, Auction, Bid, Comment, Category, Watchlist
 
@@ -90,7 +91,18 @@ def auction(request):
             "auction": auction
         })
 
+@login_required
 def watchlist(request):
-    return render(request, "auctions/watchlist.html", {
-        "auctions": Watchlist.objects.filter(user=request.user)
+    user= request.user     
+    if request.method == "POST":           
+        auction = Auction.objects.get(id=request.POST["auction"])
+        fav = Watchlist(item=auction, user=user)
+        fav.save()
+        return render(request, "auctions/auction.html", {
+            "auction": auction
+        })
+
+    else:
+        return render(request, "auctions/watchlist.html", {
+        "auctions": Watchlist.objects.filter(user=user)
     })

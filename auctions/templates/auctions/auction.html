@@ -7,11 +7,17 @@
         {{auction.title}}
     </div>
     <img src="{{auction.url}}" class="img-fluid rounded mx-auto d-block image2" alt={{auction.title}}>
-    <div class="card-body">
+    {% if user.is_authenticated %}
+    <form action="{% url 'watchlist' %}" method="POST">
+        {% csrf_token %}
+         <input type="hidden" name="auction" value={{auction.id}}>
+        <button type="submit" class="btn btn-primary">Add to Watchlist</button>
+    </form>
+    {% endif %}
     <div class="card-body">
         <p class="card-text">{{auction.text}}</p>
         <a href="#" class="btn btn-primary">Add comment</a>
-        </div>
+    </div>
     <div class="card-footer text-muted">
             highest bid:  ${{auction.price}}
     </div>
