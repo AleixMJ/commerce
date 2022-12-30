@@ -43,5 +43,6 @@ class Comment(models.Model):
 
 class Watchlist(models.Model):
     item = models.ForeignKey(Auction, on_delete=models.CASCADE, related_name='watching')  
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='mywatch')
     def __str__(self):
         return f"{self.item}"
