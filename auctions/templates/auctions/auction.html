@@ -48,7 +48,17 @@
                     <button type="submit" class="btn btn-primary">Submit comment</button>
                  
             </form>                   
-        {% endif %}
+            {% endif %}
+
+            {% if comments %}
+
+                {% for comment in comments%}
+
+                    <p>{{comment.text}}</p>
+                    <p> written by: {{comment.user}}</p>
+                {% endfor %}
+
+            {% endif %}
     
 </div>
 

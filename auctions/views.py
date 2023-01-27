@@ -86,6 +86,7 @@ def listing(request):
 def auction(request, id):
     auction = Auction.objects.get(id=id)
     bids = Bid.objects.filter(item=auction)
+    comments = Comment.objects.filter(item=auction)
     if not bids:
         price = auction.price
     else:
@@ -97,7 +98,8 @@ def auction(request, id):
         "auction": auction,
         "watchlist": watchlist,
         "minimum": minimum,
-        "price":price
+        "price": price,
+        "comments": comments
     })
 
 @login_required
