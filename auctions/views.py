@@ -126,7 +126,10 @@ def watchlist(request):
 def bidding(request, id):
         user= request.user  
         auction = Auction.objects.get(pk=id)
+        
         price = request.POST["price"]
+        auction.price = price
+        auction.save()
         bet = Bid(item=auction, bidder=user, price=price)
         bet.save()              
         return HttpResponseRedirect(reverse("auction", args=(id,)))
